@@ -29,11 +29,20 @@ print("Simulation ended at the real-time: ", getRealTimeInPrintFormat())
 # Problem 1
 print("Average response time for processing the entire image dataset: {:.2f} seconds".format(overall_avg_response_time))
 
-# Problem 2
-data = get_group_avg_response_time(iot_object_detection_module.history)
-plt.hist(data, bins=30, color='skyblue', edgecolor='black')
-plt.xlabel('whatever')
-plt.ylabel('Avg. Response Time')
-plt.title('Avg. Reponse time of bbox')
-plt.show()
 print("Total Elapsed time: %fs" % (end_time - start_time))
+
+# Problem 2
+
+# convert the list of TaskEntity objects into a dictionary format
+history_dict = {i: task.__dict__ for i, task in enumerate(iot_object_detection_module.history)}
+
+# now pass this dictionary to the function
+depth_group_avg_response_times = get_group_avg_response_time(history_dict)
+
+plt.figure(figsize=(10, 6))
+depth_ranges = [f"{i*10}-{(i+1)*10}m" for i in range(10)]  # ["0-10m", "10-20m", ..., "90-100m"]
+plt.bar(depth_ranges, depth_group_avg_response_times, color="skyblue")
+plt.xlabel("")
+plt.ylabel("Average Response Time (s)")
+plt.title("Average Response Time by Depth Group")
+plt.show()
