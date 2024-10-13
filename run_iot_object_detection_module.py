@@ -40,7 +40,7 @@ history_dict = {i: task.__dict__ for i, task in enumerate(iot_object_detection_m
 depth_group_avg_response_times = get_group_avg_response_time(history_dict)
 
 plt.figure(figsize=(10, 6))
-depth_ranges = [f"{i*10}-{(i+1)*10}m" for i in range(10)]  # ["0-10m", "10-20m", ..., "90-100m"]
+depth_ranges = [f"{i*10}-{(i+1)*10-1}m" for i in range(10)]  # ["0-10m", "10-20m", ..., "90-100m"]
 plt.bar(depth_ranges, depth_group_avg_response_times, color="skyblue")
 plt.xlabel("")
 plt.ylabel("Average Response Time (s)")
