@@ -32,7 +32,7 @@ def process_frame(frame):
 
         area = (x2 - x1) * (y2 - y1) #added priority
 
-        prio = 0.1 * (1/area) + 0.9 * (depth) 
+        prio = int((0.1*(area/(1920 * 1280)) + 0.9*(depth/100))*100) 
 
         task = TaskEntity(image_path= frame.path,
                           coord=[x1, y1, x2, y2],
