@@ -30,16 +30,21 @@ def process_frame(frame):
     for bbox in cluster_boxes_data:
         x1, y1, x2, y2, depth= bbox[:5]
 
-        prio = (x2 - x1) * (y2 - y1)
+        prio = (x2 - x1) * (y2 - y1) #added priority 
 
         task = TaskEntity(image_path= frame.path,
                           coord=[x1, y1, x2, y2],
                           priority=prio,
                           depth=depth
         )
-        tasks.append(task)
+        tasks.append((prio, task))
     
-    return tasks
+    tasks.sort()
+    sorted_tasks = []
+    for duo in tasks :
+        sorted_tasks.append(duo[1])
+
+    return sorted_tasks
     # student's code here
 
 
